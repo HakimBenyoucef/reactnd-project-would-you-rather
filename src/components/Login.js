@@ -54,8 +54,8 @@ export default class Login extends Component {
             textAlign: "center",
           }}
         >
-          <a href="https://www.freepik.com/free-photos-vectors/business">
-            Business vector created by freepik - www.freepik.com
+          <a href="https://www.freepik.com/free-photos-vectors/people">
+            People vector created by freepik - www.freepik.com
           </a>
         </footer>
       </React.Fragment>
