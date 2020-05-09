@@ -22,7 +22,7 @@ export default class Login extends Component {
             <Header.Subheader>Please sign in to continue</Header.Subheader>
           </Header>
           <Grid padded textAlign="center">
-            <Grid.Row className="login">
+            <Grid.Row>
               <Grid.Column width={16}>
                 {false && (
                   <Dimmer active inverted>

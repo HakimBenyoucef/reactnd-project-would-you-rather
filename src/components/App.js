@@ -3,6 +3,7 @@ import { Grid } from "semantic-ui-react";
 import { Route } from "react-router-dom";
 import Login from "./Login";
 import Polls from "./Polls";
+import New from "./New";
 
 function App() {
   return (
@@ -20,6 +21,12 @@ function App() {
           path="/login"
           render={() => (
             <Login />
+          )}
+        />
+        <Route
+          path="/new"
+          render={() => (
+            <New />
           )}
         />
         </Grid.Column>
