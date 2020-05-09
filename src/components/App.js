@@ -1,23 +1,16 @@
-import React from 'react';
+import React from "react";
+import { Grid } from "semantic-ui-react";
+import Login from "./Login";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Grid padded="vertically" columns={1} centered>
+      <Grid.Row>
+        <Grid.Column style={{ maxWidth: 550 }}>
+          <Login />
+        </Grid.Column>
+      </Grid.Row>
+    </Grid>
   );
 }
 
