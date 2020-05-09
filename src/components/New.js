@@ -3,8 +3,6 @@ import {
   Segment,
   Header,
   Grid,
-  Dimmer,
-  Loader,
   Form,
   Input,
   Divider,

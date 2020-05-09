@@ -4,6 +4,7 @@ import { Route } from "react-router-dom";
 import Login from "./Login";
 import Polls from "./Polls";
 import New from "./New";
+import Leader from "./Leader";
 
 function App() {
   return (
@@ -27,6 +28,12 @@ function App() {
           path="/new"
           render={() => (
             <New />
+          )}
+        />
+        <Route
+          path="/leader"
+          render={() => (
+            <Leader />
           )}
         />
         </Grid.Column>
