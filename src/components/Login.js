@@ -35,7 +35,6 @@ class Login extends Component {
   }
 
   onChange(e, { value }) {
-    console.log("Onchange : " + value);
     this.setState({ userId: value, disabled: false });
   }
 
@@ -76,19 +75,19 @@ class Login extends Component {
                       required
                       onChange={this.onChange}
                       options={
-                        this.props.users &&
-                        this.props.users.map((user) => ({
-                          key: user.id,
-                          text: user.name,
-                          value: user.id,
-                          image: { avatar: true, src: user.avatarURL },
-                        }))
+                        (this.props.users &&
+                          this.props.users.map((user) => ({
+                            key: user.id,
+                            text: user.name,
+                            value: user.id,
+                            image: { avatar: true, src: user.avatarURL },
+                          }))) ||
+                        []
                       }
                     />
                     <Form.Button
                       content="Login"
                       primary
-                      disabled={false}
                       fluid
                       disabled={this.state.disabled}
                     />

@@ -26,15 +26,13 @@ class NavBar extends Component {
           <Menu.Item name="leader board" as={NavLink} to="/leader" />
           <Menu.Menu position="right">
             <Menu.Item>
-              <span>
-                <Image
-                  src={user && user.avatarURL}
-                  avatar
-                  spaced="right"
-                  verticalAlign="bottom"
-                />
-                {user && user.name}
-              </span>
+              <Image
+                src={user && user.avatarURL}
+                avatar
+                spaced="right"
+                verticalAlign="bottom"
+              />
+              {user && user.name}
             </Menu.Item>
             <Menu.Item>
               <Button content="Logout" negative onClick={this.logout} />

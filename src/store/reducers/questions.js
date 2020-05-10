@@ -1,11 +1,11 @@
-import { RECEIVE_QUESTIONS} from "../actions/questions";
+import { UPDATE_QUESTIONS } from "../actions/questions";
 
 export default function questions(state = [], action) {
   switch (action.type) {
-    case RECEIVE_QUESTIONS:
-      return { ...state, users: action.questions };
+    case UPDATE_QUESTIONS:
+      return { ...state, questions: action.questions };
 
     default:
       return state;
   }
-};
+}
