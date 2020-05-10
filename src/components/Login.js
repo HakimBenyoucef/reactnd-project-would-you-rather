@@ -9,9 +9,12 @@ import {
   Form,
 } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
+import { connect } from "react-redux";
 
-export default class Login extends Component {
+class Login extends Component {
+  componentDidMount() {}
   render() {
+    console.log("USERS render: ", JSON.stringify(this.props.users));
     return (
       <React.Fragment>
         <Segment.Group>
@@ -62,3 +65,13 @@ export default class Login extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  console.log("USERS mapStateToProps: ", JSON.stringify(state));
+  return {
+    users: state.users.users,
+    questions: state.questions.questions,
+  };
+};
+
+export default connect(mapStateToProps, null)(Login);

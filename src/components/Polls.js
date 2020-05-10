@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Container, Responsive, Menu, Image, Button } from "semantic-ui-react";
 import { NavLink } from "react-router-dom";
+import Questions from "./Questions";
 
 export default class Polls extends Component {
   render() {
@@ -30,6 +31,7 @@ export default class Polls extends Component {
             </Menu.Item>
           </Menu.Menu>
         </Responsive>
+        <Questions/>
       </Container>
     );
   }
