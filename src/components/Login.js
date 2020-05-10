@@ -11,13 +11,12 @@ import {
 import "semantic-ui-css/semantic.min.css";
 import { connect } from "react-redux";
 import { setAuthUser } from "../store/actions/authUser";
-import { Redirect } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import GridContainer from "./GridContainer";
 
 class Login extends Component {
   state = {
     userId: "",
-    redirect: false,
     disabled: true,
   };
 
@@ -31,7 +30,7 @@ class Login extends Component {
     event.preventDefault();
 
     this.props.setAuthUser(this.state.userId);
-    this.setState({ redirect: true });
+    this.props.history.push("/");
   }
 
   onChange(e, { value }) {
@@ -39,9 +38,6 @@ class Login extends Component {
   }
 
   render() {
-    if (this.state.redirect) {
-      return <Redirect to="/" />;
-    }
     return (
       <React.Fragment>
         <GridContainer>
@@ -124,4 +120,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Login));

@@ -6,6 +6,7 @@ import New from "./New";
 import Leader from "./Leader";
 import { initData } from "../store/actions/shared";
 import { connect } from "react-redux";
+import AnswerToPoll from "./AnswerToPoll";
 
 class App extends Component {
   componentDidMount() {
@@ -21,6 +22,7 @@ class App extends Component {
           <Route exact path="/" render={() => <Polls />} />
           <Route path="/new" render={() => <New />} />
           <Route path="/leader" render={() => <Leader />} />
+          <Route path="/answerTo" render={() => <AnswerToPoll />} />
         </React.Fragment>
       </div>
     );

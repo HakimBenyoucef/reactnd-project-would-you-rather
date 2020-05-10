@@ -14,20 +14,21 @@ import { updateQuestions } from "../store/actions/questions";
 import { connect } from "react-redux";
 import { _saveQuestion } from "../utils/_DATA";
 import { withRouter } from "react-router-dom";
+import Question from "./Question";
 
-class New extends Component {
+class AnswerToPoll extends Component {
+  state = {
+    value: "",
+  };
   constructor(props) {
     super(props);
     this.onChangeText1 = this.onChangeText1.bind(this);
     this.onChangeText2 = this.onChangeText2.bind(this);
-    this.addNewQuestion = this.addNewQuestion.bind(this);
+    this.answerQuestion = this.answerQuestion.bind(this);
   }
-  state = {
-    optionOne: "",
-    optionTwo: "",
-  };
+  state = {};
 
-  addNewQuestion(e) {
+  answerQuestion(e) {
     e.preventDefault();
     let authUser = this.props.authUser;
     let question = {
@@ -61,40 +62,10 @@ class New extends Component {
       <React.Fragment>
         <NavBar />
         <GridContainer>
-          <Segment.Group>
-            <Header as="h3" block attached="top" textAlign="center">
-              <Header.Content>Create a new question</Header.Content>
-            </Header>
-            <Grid padded>
-              <Grid.Column width={16}>
-                <p>Complete the question</p>
-                <p>
-                  <strong>Would you rather...</strong>
-                </p>
-                <Form onSubmit={this.addNewQuestion}>
-                  <Input
-                    fluid
-                    required
-                    placeholder="Option 1"
-                    value={this.state.optionOne}
-                    onChange={this.onChangeText1}
-                  />
-                  <Divider horizontal>Or</Divider>
-                  <Input
-                    fluid
-                    required
-                    placeholder="Option 2"
-                    value={this.state.optionTwo}
-                    onChange={this.onChangeText2}
-                  />
-                  <br />
-                  <Button primary fluid>
-                    Submit
-                  </Button>
-                </Form>
-              </Grid.Column>
-            </Grid>
-          </Segment.Group>
+          <Question
+            quiz={true}
+            question={this.props.location.state.question}
+          ></Question>
         </GridContainer>
       </React.Fragment>
     );
@@ -114,4 +85,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(New));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(AnswerToPoll));
