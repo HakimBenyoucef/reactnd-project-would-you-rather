@@ -1,12 +1,14 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import { createLogger } from "redux-logger";
 import users from "./reducers/users";
-import questions from './reducers/questions' 
-import thunk from 'redux-thunk';
+import questions from "./reducers/questions";
+import thunk from "redux-thunk";
+import authUser from "./actions/authUser";
 
 const rootReducer = combineReducers({
   users: users,
   questions: questions,
+  authUser: authUser,
 });
 
 const store = createStore(rootReducer, applyMiddleware(thunk));

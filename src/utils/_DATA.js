@@ -12,9 +12,9 @@ let users = {
     questions: ["8xf0y6ziyjabvozdd253nd", "am8ehyc8byjqgar0jgpub9"],
   },
   youcefbouziane: {
-    id: "tylermcginnis",
-    name: "Tyler McGinnis",
-    avatarURL: "/images/youcef",
+    id: "youcefbouziane",
+    name: "Youcef Bouziane",
+    avatarURL: "/images/youcef.png",
     answers: {
       vthrdm985a262al8qx3do: "optionOne",
       xj352vofupe1dqz9emx13r: "optionTwo",
@@ -22,9 +22,9 @@ let users = {
     questions: ["loxhs1bqm25b708cmbf3g", "vthrdm985a262al8qx3do"],
   },
   ouamaraboubakeur: {
-    id: "johndoe",
-    name: "John Doe",
-    avatarURL: "/images/boubou",
+    id: "ouamaraboubakeur",
+    name: "Ouamara Boubakeur",
+    avatarURL: "/images/boubou.png",
     answers: {
       xj352vofupe1dqz9emx13r: "optionOne",
       vthrdm985a262al8qx3do: "optionTwo",
@@ -33,8 +33,8 @@ let users = {
     questions: ["6ni6ok3ym7mf1p33lnez", "xj352vofupe1dqz9emx13r"],
   },
   mohamedbenayed: {
-    id: "johndoe",
-    name: "John Doe",
+    id: "mohamedbenayed",
+    name: "Mohamed Benayed",
     avatarURL: "/images/mohamed.png",
     answers: {
       xj352vofupe1dqz9emx13r: "optionOne",
