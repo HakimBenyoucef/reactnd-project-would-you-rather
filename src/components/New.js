@@ -14,6 +14,7 @@ import { updateQuestions } from "../store/actions/questions";
 import { connect } from "react-redux";
 import { _saveQuestion } from "../utils/_DATA";
 import { withRouter } from "react-router-dom";
+import { updateUsers } from "../store/actions/users";
 
 class New extends Component {
   constructor(props) {
@@ -27,22 +28,28 @@ class New extends Component {
     optionTwo: "",
   };
 
-  addNewQuestion(e) {
-    e.preventDefault();
-    let authUser = this.props.authUser;
-    let question = {
-      optionOneText: this.state.optionOne,
-      optionTwoText: this.state.optionTwo,
-      author: authUser,
-    };
-    _saveQuestion(question).then((formatedQuestion) => {
-      let questions = this.props.questions;
-      questions.push(formatedQuestion);
-      this.props.updateQuestions([...questions]);
-    });
+    addNewQuestion(e) {
+        e.preventDefault();
+        let authUser = this.props.authUser;
+        let question = {
+        optionOneText: this.state.optionOne,
+        optionTwoText: this.state.optionTwo,
+        author: authUser,
+        };
+        _saveQuestion(question).then((formatedQuestion) => {
+        let questions = this.props.questions;
+        questions.push(formatedQuestion);
 
-    this.props.history.push("/");
-  }
+        let users = this.props.users;
+        let user = users.filter((user) => user.id === authUser)[0];
+        user.questions.push(formatedQuestion.id);
+        users = users.filter((user) => user.id !== authUser).concat([user])
+        this.props.updateUsers([...users]);
+        this.props.updateQuestions([...questions]);
+        });
+
+        this.props.history.push("/");
+    }
 
   onChangeText1(e) {
     this.setState({
@@ -105,12 +112,14 @@ const mapStateToProps = (state) => {
   return {
     authUser: state.authUser && state.authUser.user,
     questions: state.questions.questions,
+    users: state.users.users,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     updateQuestions: (questions) => dispatch(updateQuestions(questions)),
+    updateUsers: (users) => dispatch(updateUsers(users)),
   };
 };
 

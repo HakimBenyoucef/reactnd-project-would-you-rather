@@ -13,6 +13,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { updateQuestions } from "../store/actions/questions";
 import { _saveQuestionAnswer } from "../utils/_DATA";
+import { updateUsers } from "../store/actions/users";
 
 class Question extends Component {
   state = {
@@ -33,7 +34,33 @@ class Question extends Component {
     });
   }
 
-  answerPoll() {}
+  answerPoll(e) {
+    e.preventDefault();
+    let authedUser = this.props.authUser;
+    let question = this.props.question;
+    console.log(authedUser);
+    _saveQuestionAnswer({
+      authedUser,
+      qid: question.id,
+      answer: this.state.value,
+    }).then(() => {
+      let questions = this.props.questions;
+      let users = this.props.users;
+      let user = users.filter((user) => user.id === authedUser)[0];
+      console.log(user);
+      user.answers = { ...user.answers, [question.id]: this.state.value };
+      users = users.filter((user) => user.id !== authedUser).concat([user]);
+      this.props.updateUsers([...users]);
+
+      question[this.state.value].votes.push(authedUser);
+      question = questions
+        .filter((q) => q.id !== question.id)
+        .concat([question]);
+      this.props.updateQuestions([...questions]);
+    });
+
+    this.props.history.push("/");
+  }
 
   onChange(e, { value }) {
     console.log("value: ", value);
@@ -76,11 +103,8 @@ class Question extends Component {
                       <Radio
                         label={this.props.question.optionOne.text}
                         name="radioGroup"
-                        value={this.props.question.optionOne.text}
-                        checked={
-                          this.state.value ===
-                          this.props.question.optionOne.text
-                        }
+                        value={"optionOne"}
+                        checked={this.state.value === "optionOne"}
                         onChange={this.onChange}
                       />
                     </Form.Field>
@@ -88,11 +112,8 @@ class Question extends Component {
                       <Radio
                         label={this.props.question.optionTwo.text}
                         name="radioGroup"
-                        value={this.props.question.optionTwo.text}
-                        checked={
-                          this.state.value ===
-                          this.props.question.optionTwo.text
-                        }
+                        value={"optionTwo"}
+                        checked={this.state.value === "optionTwo"}
                         onChange={this.onChange}
                       />
                     </Form.Field>
@@ -113,16 +134,17 @@ class Question extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log("state= ", state);
   return {
     users: state.users.users,
     questions: state.questions.questions,
+    authUser: state.authUser && state.authUser.user,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     updateQuestions: (questions) => dispatch(updateQuestions(questions)),
+    updateUsers: (users) => dispatch(updateUsers(users)),
   };
 };
 
