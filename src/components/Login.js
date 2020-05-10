@@ -10,7 +10,7 @@ import {
 } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 import { connect } from "react-redux";
-import setAuthUser from "../store/actions/authUser";
+import { setAuthUser } from "../store/actions/authUser";
 import { Redirect } from "react-router-dom";
 import GridContainer from "./GridContainer";
 
@@ -18,6 +18,7 @@ class Login extends Component {
   state = {
     userId: "",
     redirect: false,
+    disabled: true,
   };
 
   constructor(props) {
@@ -34,7 +35,8 @@ class Login extends Component {
   }
 
   onChange(e, { value }) {
-    this.setState({ userId: value });
+    console.log("Onchange : " + value);
+    this.setState({ userId: value, disabled: false });
   }
 
   render() {
@@ -88,6 +90,7 @@ class Login extends Component {
                       primary
                       disabled={false}
                       fluid
+                      disabled={this.state.disabled}
                     />
                   </Form>
                 </Grid.Column>
@@ -112,7 +115,7 @@ class Login extends Component {
 const mapStateToProps = (state) => {
   return {
     users: state.users.users,
-    authUser: state.authUser.user,
+    authUser: state.authUser && state.authUser.user,
   };
 };
 

@@ -1,9 +1,9 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import { createLogger } from "redux-logger";
 import users from "./reducers/users";
-import questions from "./reducers/questions";
-import thunk from "redux-thunk";
-import authUser from "./actions/authUser";
+import questions from './reducers/questions' 
+import thunk from 'redux-thunk';
+import authUser  from "./reducers/authUser";
 
 const rootReducer = combineReducers({
   users: users,

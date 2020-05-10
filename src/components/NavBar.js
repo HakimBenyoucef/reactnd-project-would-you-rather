@@ -1,12 +1,23 @@
 import React, { Component } from "react";
 import { Container, Responsive, Menu, Image, Button } from "semantic-ui-react";
 import { NavLink } from "react-router-dom";
-import setAuthUser from "../store/actions/authUser";
+import { setAuthUser } from "../store/actions/authUser";
 import { connect } from "react-redux";
 
 class NavBar extends Component {
-  logout() {}
+  constructor(props) {
+    super(props);
+    this.logout = this.logout.bind(this);
+  }
+
+  logout() {
+    this.props.setAuthUser(undefined);
+  }
+
   render() {
+    let user =
+      this.props.users &&
+      this.props.users.filter((user) => user.id === this.props.authUser)[0];
     return (
       <Container>
         <Responsive as={Menu} minWidth={651} pointing secondary>
@@ -17,19 +28,16 @@ class NavBar extends Component {
             <Menu.Item>
               <span>
                 <Image
-                  src={"/images/logo.png"}
+                  src={user && user.avatarURL}
                   avatar
                   spaced="right"
                   verticalAlign="bottom"
                 />
-                {this.props.users &&
-                  this.props.users.filter(
-                    (user) => user.id === this.props.authUser
-                  )[0].name}
+                {user && user.name}
               </span>
             </Menu.Item>
             <Menu.Item>
-              <Button content="Logout" negative />
+              <Button content="Logout" negative onClick={this.logout} />
             </Menu.Item>
           </Menu.Menu>
         </Responsive>
@@ -37,10 +45,18 @@ class NavBar extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    users: state.users.users,
+    authUser: state.authUser && state.authUser.user,
+  };
+};
+
 const mapDispatchToProps = (dispatch) => {
   return {
     setAuthUser: (userId) => dispatch(setAuthUser(userId)),
   };
 };
 
-export default connect(null, mapDispatchToProps)(NavBar);
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar);

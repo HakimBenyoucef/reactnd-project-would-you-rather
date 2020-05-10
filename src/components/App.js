@@ -15,24 +15,21 @@ class App extends Component {
   render() {
     return (
       <div>
-        {this.props.authUser && (
-          <React.Fragment>
-            <Route path="/login" render={() => <Login />} />
-            <Route exact path="/" render={() => <Polls />} />
-            <Route path="/new" render={() => <New />} />
-            <Route path="/leader" render={() => <Leader />} />
-            <Redirect to="/login" />
-          </React.Fragment>
-        )}
+        <React.Fragment>
+          {!this.props.authUser && <Redirect to="/login" />}
+          <Route path="/login" render={() => <Login />} />
+          <Route exact path="/" render={() => <Polls />} />
+          <Route path="/new" render={() => <New />} />
+          <Route path="/leader" render={() => <Leader />} />
+        </React.Fragment>
       </div>
     );
   }
 }
 
 const mapStateToProps = (state) => {
-  console.log("authUser " + JSON.stringify(state));
   return {
-    authUser: state.authUser.user,
+    authUser: state.authUser && state.authUser.user,
   };
 };
 
