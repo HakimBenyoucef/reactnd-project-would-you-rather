@@ -17,9 +17,7 @@ import { withRouter } from "react-router-dom";
 import Question from "./Question";
 
 class AnswerToPoll extends Component {
-  state = {
-    value: "",
-  };
+
   constructor(props) {
     super(props);
     this.onChangeText1 = this.onChangeText1.bind(this);

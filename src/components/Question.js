@@ -11,30 +11,41 @@ import {
 import "semantic-ui-css/semantic.min.css";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import { updateQuestions } from "../store/actions/questions";
+import { _saveQuestionAnswer } from "../utils/_DATA";
 
 class Question extends Component {
   state = {
     value: "",
+    disabled: true,
   };
   constructor(props) {
     super(props);
     this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
+    this.viewPollDetails = this.viewPollDetails.bind(this);
+    this.answerPoll = this.answerPoll.bind(this);
   }
-  onSubmit() {
-    console.log("onSubmit 0 -->");
-    if (!this.props.quiz) {
-      console.log("onSubmit 1 -->");
-      this.props.history.push({
-        pathname: "/answerTo",
-        state: { question: this.props.question },
-      });
-    }
+
+  viewPollDetails() {
+    this.props.history.push({
+      pathname: "/answerTo",
+      state: { question: this.props.question },
+    });
   }
-  onChange() {}
+
+  answerPoll() {}
+
+  onChange(e, { value }) {
+    console.log("value: ", value);
+    this.setState({ value, disabled: false });
+  }
+
   getUser(id) {
-    return this.props.users.filter((user) => user.id === id)[0];
+    console.log("user id = ", id);
+    let user = this.props.users.filter((user) => user.id === id)[0];
+    return user;
   }
+
   render() {
     let user = this.props.question && this.getUser(this.props.question.author);
 
@@ -54,39 +65,35 @@ class Question extends Component {
 
             <Grid.Column width={11}>
               <Header as="h3">Would you rather</Header>
-              <Form onSubmit={this.onSubmit}>
+              <Form
+                onSubmit={
+                  this.props.quiz ? this.answerPoll : this.viewPollDetails
+                }
+              >
                 {this.props.quiz ? (
                   <React.Fragment>
                     <Form.Field>
                       <Radio
-                        label={
-                          this.props.question &&
+                        label={this.props.question.optionOne.text}
+                        name="radioGroup"
+                        value={this.props.question.optionOne.text}
+                        checked={
+                          this.state.value ===
                           this.props.question.optionOne.text
                         }
-                        name="radioGroup"
-                        value={this.state.value}
-                        checked={
-                          this.props.question &&
-                          this.state.value ===
-                            this.props.question.optionOne.text
-                        }
-                        onChange={this.handleChange}
+                        onChange={this.onChange}
                       />
                     </Form.Field>
                     <Form.Field>
                       <Radio
-                        label={
-                          this.props.question &&
+                        label={this.props.question.optionTwo.text}
+                        name="radioGroup"
+                        value={this.props.question.optionTwo.text}
+                        checked={
+                          this.state.value ===
                           this.props.question.optionTwo.text
                         }
-                        name="radioGroup"
-                        value={this.state.value}
-                        checked={
-                          this.props.question &&
-                          this.state.value ===
-                            this.props.question.optionTwo.text
-                        }
-                        onChange={this.handleChange}
+                        onChange={this.onChange}
                       />
                     </Form.Field>
                   </React.Fragment>
@@ -106,9 +113,20 @@ class Question extends Component {
 }
 
 const mapStateToProps = (state) => {
+  console.log("state= ", state);
   return {
     users: state.users.users,
+    questions: state.questions.questions,
   };
 };
 
-export default connect(mapStateToProps, null)(withRouter(Question));
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updateQuestions: (questions) => dispatch(updateQuestions(questions)),
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(Question));

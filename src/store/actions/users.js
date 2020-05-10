@@ -1,8 +1,8 @@
-export const RECEIVE_USERS = "RECEIVE_USERS";
+export const UPDATE_USERS = "UPDATE_USERS";
 
-export const receiveUsers = (users) => {
+export const updateUsers = (users) => {
   return {
-    type: RECEIVE_USERS,
+    type: UPDATE_USERS,
     users,
   };
 };
