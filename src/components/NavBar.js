@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Container, Responsive, Menu, Image, Button } from "semantic-ui-react";
-import { NavLink } from "react-router-dom";
+import { NavLink, withRouter, Redirect } from "react-router-dom";
 import { setAuthUser } from "../store/actions/authUser";
 import { connect } from "react-redux";
 
@@ -18,6 +18,11 @@ class NavBar extends Component {
     let user =
       this.props.users &&
       this.props.users.filter((user) => user.id === this.props.authUser)[0];
+
+    if (!this.props.authUser) {
+      this.props.history.push("/login");
+      return <React.Fragment />;
+    }
     return (
       <Container>
         <Responsive as={Menu} minWidth={651} pointing secondary>
@@ -57,4 +62,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(NavBar);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(NavBar));

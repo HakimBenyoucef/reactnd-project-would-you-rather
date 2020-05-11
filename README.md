@@ -11,7 +11,7 @@ It uses React, Redux, React Router & Redux Thunk.
 
 This app is the second of three projects required for [Udacity's React Nanodegree program](https://www.udacity.com/course/react-nanodegree--nd019).
 
-- Live Demo: [Mobile Flashcards on Expo](https://hakim-would-you-rather.netlify.app/)
+-  [Live Demo](https://hakim-would-you-rather.netlify.app/)
 
 ## Installation
 

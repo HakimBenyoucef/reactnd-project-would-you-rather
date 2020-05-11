@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Tab } from "semantic-ui-react";
 import Question from "./Question";
 import { connect } from "react-redux";
+import { withRouter, Redirect } from "react-router-dom";
 
 class Questions extends Component {
   panes = [
@@ -56,6 +57,11 @@ class Questions extends Component {
   }
 
   render() {
+      
+    if (!this.props.authUser) {
+        this.props.history.push("/login");
+        return <React.Fragment/>
+      }
     return (
       <Tab
         menu={{ fluid: true, tabular: true, pointing: true }}
@@ -73,4 +79,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, null)(Questions);
+export default connect(mapStateToProps, null)(withRouter(Questions));

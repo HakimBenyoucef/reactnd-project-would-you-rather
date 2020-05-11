@@ -2,10 +2,15 @@ import React, { Component } from "react";
 import NavBar from "./NavBar";
 import GridContainer from "./GridContainer";
 import Question from "./Question";
-import { withRouter } from "react-router-dom";
+import { withRouter, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
 
 class Result extends Component {
   render() {
+    if (!this.props.authUser) {
+      this.props.history.push("/login");
+      return <React.Fragment />;
+    }
     return (
       <React.Fragment>
         <NavBar />
@@ -20,4 +25,10 @@ class Result extends Component {
   }
 }
 
-export default withRouter(Result);
+const mapStateToProps = (state) => {
+  return {
+    authUser: state.authUser && state.authUser.user,
+  };
+};
+
+export default connect(mapStateToProps, null)(withRouter(Result));

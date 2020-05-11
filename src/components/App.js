@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route, Redirect } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import Login from "./Login";
 import Polls from "./Polls";
 import New from "./New";
@@ -8,6 +8,7 @@ import { initData } from "../store/actions/shared";
 import { connect } from "react-redux";
 import AnswerToPoll from "./AnswerToPoll";
 import Result from "./Result";
+import NotFound from "./NotFound";
 
 class App extends Component {
   componentDidMount() {
@@ -18,13 +19,15 @@ class App extends Component {
     return (
       <div>
         <React.Fragment>
-          {!this.props.authUser && <Redirect to="/login" />}
-          <Route path="/login" render={() => <Login />} />
-          <Route exact path="/" render={() => <Polls />} />
-          <Route path="/new" render={() => <New />} />
-          <Route path="/leader" render={() => <Leader />} />
-          <Route path="/answerTo" render={() => <AnswerToPoll />} />
-          <Route path="/result" render={() => <Result />} />
+          <Switch>
+            <Route path="/login" component={Login} />
+            <Route exact path="/" component={Polls} />
+            <Route path="/new" component={New} />
+            <Route path="/leader" component={Leader} />
+            <Route path="/answerTo" component={AnswerToPoll} />
+            <Route path="/result" component={Result} />
+            <Route component={NotFound} />
+          </Switch>
         </React.Fragment>
       </div>
     );
