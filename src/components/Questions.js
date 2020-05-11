@@ -22,7 +22,7 @@ class Questions extends Component {
         <Tab.Pane attached={false}>
           {this.props.questions &&
             this.getAnswerdQuestion().map((question) => (
-              <Question question={question} key={question.id} />
+              <Question question={question} key={question.id} answered={true} />
             ))}
         </Tab.Pane>
       ),
@@ -56,8 +56,8 @@ class Questions extends Component {
   }
 
   render() {
-      console.log(this.props.users)
-      console.log(this.props.questions)
+    console.log(this.props.users);
+    console.log(this.props.questions);
     return (
       <Tab
         menu={{ fluid: true, tabular: true, pointing: true }}

@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import NavBar from "./NavBar";
 import GridContainer from "./GridContainer";
+import Question from "./Question";
+import { withRouter } from "react-router-dom";
 
 class Result extends Component {
   render() {
@@ -9,7 +11,7 @@ class Result extends Component {
         <NavBar />
         <GridContainer>
           <Question
-            resutl={true}
+            result={true}
             question={this.props.location.state.question}
           ></Question>
         </GridContainer>
@@ -18,4 +20,4 @@ class Result extends Component {
   }
 }
 
-export default Result;
+export default withRouter(Result);

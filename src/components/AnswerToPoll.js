@@ -1,13 +1,4 @@
 import React, { Component } from "react";
-import {
-  Segment,
-  Header,
-  Grid,
-  Form,
-  Input,
-  Divider,
-  Button,
-} from "semantic-ui-react";
 import NavBar from "./NavBar";
 import GridContainer from "./GridContainer";
 import { updateQuestions } from "../store/actions/questions";
