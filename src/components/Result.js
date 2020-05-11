@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import NavBar from "./NavBar";
 import GridContainer from "./GridContainer";
 import Question from "./Question";
-import { withRouter, Redirect } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
 class Result extends Component {

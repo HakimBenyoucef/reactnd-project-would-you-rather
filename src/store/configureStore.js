@@ -1,5 +1,4 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
-import { createLogger } from "redux-logger";
 import users from "./reducers/users";
 import questions from './reducers/questions' 
 import thunk from 'redux-thunk';

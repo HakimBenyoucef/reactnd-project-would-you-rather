@@ -22,8 +22,8 @@ class App extends Component {
           <Switch>
             <Route path="/login" component={Login} />
             <Route exact path="/" component={Polls} />
-            <Route path="/new" component={New} />
-            <Route path="/leader" component={Leader} />
+            <Route path="/add" component={New} />
+            <Route path="/leaderboard" component={Leader} />
             <Route path="/answerTo" component={AnswerToPoll} />
             <Route path="/result" component={Result} />
             <Route component={NotFound} />

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Tab } from "semantic-ui-react";
 import Question from "./Question";
 import { connect } from "react-redux";
-import { withRouter, Redirect } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 class Questions extends Component {
   panes = [
