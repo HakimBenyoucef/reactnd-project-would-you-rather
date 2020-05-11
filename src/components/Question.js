@@ -44,7 +44,7 @@ const Quiz = ({ question, value, onChange }) => {
   );
 };
 
-const Result = ({ question, score }) => {
+const Result = ({ question, score, authUser }) => {
   return (
     <React.Fragment>
       <Header as="h2">
@@ -57,10 +57,12 @@ const Result = ({ question, score }) => {
           <Card.Description>
             <Progress percent={score.percent1} progress color={score.color1} />
           </Card.Description>
-          <Label as="a" image>
-            <img src="/images/hakim.png" />
-            Your vote
-          </Label>
+          {question.optionOne.votes.includes(authUser) && (
+            <Label as="a" image>
+              <img src={"/images/"+authUser+".png"} alt={authUser} />
+              Your vote
+            </Label>
+          )}
         </Card.Content>
         <Card.Content extra>
           <Icon name="user" />
@@ -73,6 +75,12 @@ const Result = ({ question, score }) => {
           <Card.Description>
             <Progress percent={score.percent2} progress color={score.color2} />
           </Card.Description>
+          {question.optionTwo.votes.includes(authUser) && (
+            <Label as="a" image>
+            <img src={"/images/"+authUser+".png"} alt={authUser} />
+              Your vote
+            </Label>
+          )}
         </Card.Content>
         <Card.Content extra>
           <Icon name="user" />
@@ -105,7 +113,6 @@ class Question extends Component {
   answerPoll() {
     let authedUser = this.props.authUser;
     let question = this.props.question;
-    console.log(authedUser);
     _saveQuestionAnswer({
       authedUser,
       qid: question.id,
@@ -114,19 +121,21 @@ class Question extends Component {
       let questions = this.props.questions;
       let users = this.props.users;
       let user = users.filter((user) => user.id === authedUser)[0];
-      console.log(user);
       user.answers = { ...user.answers, [question.id]: this.state.value };
       users = users.filter((user) => user.id !== authedUser).concat([user]);
       this.props.updateUsers([...users]);
 
       question[this.state.value].votes.push(authedUser);
-      question = questions
+      questions = questions
         .filter((q) => q.id !== question.id)
         .concat([question]);
       this.props.updateQuestions([...questions]);
-    });
 
-    this.props.history.push("/");
+      this.props.history.push({
+        pathname: "/result",
+        state: { question: question },
+      });
+    });
   }
 
   showResults() {
@@ -137,12 +146,10 @@ class Question extends Component {
   }
 
   onChange(e, { value }) {
-    console.log("value: ", value);
     this.setState({ value, disabled: false });
   }
 
   getUser(id) {
-    console.log("user id = ", id);
     let user = this.props.users.filter((user) => user.id === id)[0];
     return user;
   }
@@ -188,6 +195,7 @@ class Question extends Component {
                 <Result
                   question={this.props.question}
                   score={this.getScore()}
+                  authUser={this.props.authUser}
                 />
               ) : (
                 <React.Fragment>

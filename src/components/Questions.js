@@ -56,8 +56,6 @@ class Questions extends Component {
   }
 
   render() {
-    console.log(this.props.users);
-    console.log(this.props.questions);
     return (
       <Tab
         menu={{ fluid: true, tabular: true, pointing: true }}

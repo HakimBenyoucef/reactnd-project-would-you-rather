@@ -1,47 +1,45 @@
 let users = {
   hakimbenyoucef: {
     id: "hakimbenyoucef",
-    name: "Hakim Benyoucef",
-    avatarURL: "/images/hakim.png",
+    name: "Hakim",
+    avatarURL: "/images/hakimbenyoucef.png",
     answers: {
       "8xf0y6ziyjabvozdd253nd": "optionOne",
       "6ni6ok3ym7mf1p33lnez": "optionOne",
       am8ehyc8byjqgar0jgpub9: "optionTwo",
-      loxhs1bqm25b708cmbf3g: "optionTwo",
     },
     questions: ["8xf0y6ziyjabvozdd253nd", "am8ehyc8byjqgar0jgpub9"],
   },
   youcefbouziane: {
     id: "youcefbouziane",
-    name: "Youcef Bouziane",
-    avatarURL: "/images/youcef.png",
+    name: "Youcef",
+    avatarURL: "/images/youcefbouziane.png",
     answers: {
       vthrdm985a262al8qx3do: "optionOne",
       xj352vofupe1dqz9emx13r: "optionTwo",
     },
-    questions: ["loxhs1bqm25b708cmbf3g", "vthrdm985a262al8qx3do"],
+    questions: ["loxhs1bqm25b708cmbf3g", "xj352vofupe1dqz9emx13r"],
   },
   ouamaraboubakeur: {
     id: "ouamaraboubakeur",
-    name: "Ouamara Boubakeur",
-    avatarURL: "/images/boubou.png",
+    name: "Boubakeur",
+    avatarURL: "/images/ouamaraboubakeur.png",
     answers: {
-      xj352vofupe1dqz9emx13r: "optionOne",
       vthrdm985a262al8qx3do: "optionTwo",
       "6ni6ok3ym7mf1p33lnez": "optionOne",
+      loxhs1bqm25b708cmbf3g: "optionTwo",
     },
     questions: ["6ni6ok3ym7mf1p33lnez", "xj352vofupe1dqz9emx13r"],
   },
   mohamedbenayed: {
     id: "mohamedbenayed",
-    name: "Mohamed Benayed",
-    avatarURL: "/images/mohamed.png",
+    name: "Mohamed",
+    avatarURL: "/images/mohamedbenayed.png",
     answers: {
       xj352vofupe1dqz9emx13r: "optionOne",
-      vthrdm985a262al8qx3do: "optionTwo",
-      "6ni6ok3ym7mf1p33lnez": "optionOne",
+      vthrdm985a262al8qx3do: "optionOne",
     },
-    questions: ["6ni6ok3ym7mf1p33lnez", "xj352vofupe1dqz9emx13r"],
+    questions: ["vthrdm985a262al8qx3do"],
   },
 };
 
@@ -61,14 +59,14 @@ let questions = {
   },
   "6ni6ok3ym7mf1p33lnez": {
     id: "6ni6ok3ym7mf1p33lnez",
-    author: "youcefbouziane",
+    author: "ouamaraboubakeur",
     timestamp: 1468479767190,
     optionOne: {
       votes: [],
       text: "become a superhero",
     },
     optionTwo: {
-      votes: ["youcefbouziane", "hakimbenyoucef"],
+      votes: ["ouamaraboubakeur", "hakimbenyoucef"],
       text: "become a supervillian",
     },
   },
@@ -87,7 +85,7 @@ let questions = {
   },
   loxhs1bqm25b708cmbf3g: {
     id: "loxhs1bqm25b708cmbf3g",
-    author: "mohamedbenayed",
+    author: "youcefbouziane",
     timestamp: 1482579767190,
     optionOne: {
       votes: [],
@@ -100,14 +98,14 @@ let questions = {
   },
   vthrdm985a262al8qx3do: {
     id: "vthrdm985a262al8qx3do",
-    author: "ouamaraboubakeur",
+    author: "mohamedbenayed",
     timestamp: 1489579767190,
     optionOne: {
       votes: ["ouamaraboubakeur"],
       text: "find $50 yourself",
     },
     optionTwo: {
-      votes: ["hakimbenyoucef"],
+      votes: ["youcefbouziane", "mohamedbenayed"],
       text: "have your best friend find $500",
     },
   },
