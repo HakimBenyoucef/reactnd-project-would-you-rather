@@ -8,7 +8,6 @@ import {
   Divider,
   Button,
 } from "semantic-ui-react";
-import NavBar from "./NavBar";
 import GridContainer from "./GridContainer";
 import { updateQuestions } from "../store/actions/questions";
 import { connect } from "react-redux";
@@ -66,7 +65,6 @@ class New extends Component {
   render() {
     return (
       <React.Fragment>
-        <NavBar />
         <GridContainer>
           <Segment.Group>
             <Header as="h3" block attached="top" textAlign="center">

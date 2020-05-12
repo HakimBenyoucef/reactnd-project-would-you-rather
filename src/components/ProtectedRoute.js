@@ -1,6 +1,7 @@
 import React from "react";
-import { Redirect, withRouter, Route } from "react-router-dom";
+import { withRouter, Route } from "react-router-dom";
 import { connect } from "react-redux";
+import Login from "./Login";
 
 class ProtectedRoute extends React.Component {
   render() {
@@ -8,10 +9,10 @@ class ProtectedRoute extends React.Component {
     const props = Object.assign( {}, this.props );
 
     return isAuthenticated ? (
-      <Route {...props}/>
-    ) : (
-      <Redirect to={{ pathname: "/login" }} />
-    );
+        <Route {...props}/>
+      ) : (
+        <Login />
+      );
   }
 }
 

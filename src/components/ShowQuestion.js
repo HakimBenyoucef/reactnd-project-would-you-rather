@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import NavBar from "./NavBar";
 import GridContainer from "./GridContainer";
 import Question from "./Question";
 import { withRouter } from "react-router-dom";
@@ -13,13 +12,12 @@ class ShowQuestion extends Component {
   };
 
   componentDidMount() {
-    if (this.props.match.params.question_id) {
-
-      let question = this.getQuestion(this.props.match.params.question_id);
+    let question = this.getQuestion(this.props.match.params.question_id);
+    if (question) {
       let answered = this.isAnsweredQuesiton(question);
       this.setState({ question: question, isAnswered: answered });
     } else {
-      this.props.history.push("/login");
+      return <NotFound/>
     }
   }
   isAnsweredQuesiton(question) {
@@ -42,10 +40,9 @@ class ShowQuestion extends Component {
     if (!this.state.question) {
       return <NotFound />;
     }
-
+      
     return (
       <React.Fragment>
-        <NavBar />
         <GridContainer>
           <Question
             question={this.state.question}

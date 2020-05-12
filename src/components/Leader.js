@@ -8,7 +8,6 @@ import {
   Label,
 } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
-import NavBar from "./NavBar";
 import GridContainer from "./GridContainer";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
@@ -38,7 +37,6 @@ class Leader extends Component {
   render() {
     return (
       <React.Fragment>
-        <NavBar />
         {this.props.users.sort(this.compare).map((user, index) => (
           <GridContainer key={user.id}>
             {index < 3 && (

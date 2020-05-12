@@ -3,8 +3,6 @@ import {
   Segment,
   Header,
   Grid,
-  Dimmer,
-  Loader,
   Image,
   Form,
 } from "semantic-ui-react";
@@ -30,7 +28,7 @@ class Login extends Component {
     event.preventDefault();
 
     this.props.setAuthUser(this.state.userId);
-    this.props.history.push("/");
+    this.props.history.push(this.props.location.pathname);
   }
 
   onChange(e, { value }) {
@@ -51,11 +49,6 @@ class Login extends Component {
             <Grid padded textAlign="center">
               <Grid.Row>
                 <Grid.Column width={16}>
-                  {false && (
-                    <Dimmer active inverted>
-                      <Loader inverted content="Loading" />
-                    </Dimmer>
-                  )}
                   <Image src="/images/logo.png" size="medium" centered />
                   <br />
                   <Form onSubmit={this.onSubmit}>

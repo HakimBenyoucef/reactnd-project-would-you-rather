@@ -9,6 +9,7 @@ import { connect } from "react-redux";
 import NotFound from "./NotFound";
 import ShowQuestion from "./ShowQuestion";
 import ProtectedRoute from "./ProtectedRoute";
+import NavBar from "./NavBar";
 
 class App extends Component {
   componentDidMount() {
@@ -19,13 +20,17 @@ class App extends Component {
     return (
       <div>
         <React.Fragment>
+          <NavBar />
           <Switch>
             <Route path="/login" component={Login} />
             <ProtectedRoute exact path="/" component={Polls} />
             <ProtectedRoute path="/add" component={New} />
             <ProtectedRoute path="/leaderboard" component={Leader} />
-            <ProtectedRoute path="/questions/:question_id" component={ShowQuestion} />
-            <Route component={NotFound} />
+            <ProtectedRoute
+              path="/questions/:question_id"
+              component={ShowQuestion}
+            />
+            <ProtectedRoute component={NotFound} />
           </Switch>
         </React.Fragment>
       </div>
