@@ -10,7 +10,7 @@ import {
 import "semantic-ui-css/semantic.min.css";
 import NavBar from "./NavBar";
 import GridContainer from "./GridContainer";
-import { withRouter, Redirect } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
 const getUserScore = (user) => {
@@ -36,9 +36,6 @@ class Leader extends Component {
   }
 
   render() {
-    if (!this.props.users) {
-      return <Redirect to="/login" />;
-    }
     return (
       <React.Fragment>
         <NavBar />

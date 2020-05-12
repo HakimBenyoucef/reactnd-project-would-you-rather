@@ -1,113 +1,28 @@
 import React, { Component } from "react";
-import {
-  Segment,
-  Button,
-  Header,
-  Image,
-  Grid,
-  Form,
-  Radio,
-  Card,
-  Icon,
-  Progress,
-  Label,
-} from "semantic-ui-react";
+import { Segment, Button, Header, Image, Grid, Form } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { updateQuestions } from "../store/actions/questions";
 import { _saveQuestionAnswer } from "../utils/_DATA";
 import { updateUsers } from "../store/actions/users";
+import Quiz from "./Quiz";
+import Result from "./Result";
 
-const Quiz = ({ question, value, onChange }) => {
-  return (
-    <React.Fragment>
-      <Form.Field>
-        <Radio
-          label={question.optionOne.text}
-          name="radioGroup"
-          value={"optionOne"}
-          checked={value === "optionOne"}
-          onChange={onChange}
-        />
-      </Form.Field>
-      <Form.Field>
-        <Radio
-          label={question.optionTwo.text}
-          name="radioGroup"
-          value={"optionTwo"}
-          checked={value === "optionTwo"}
-          onChange={onChange}
-        />
-      </Form.Field>
-    </React.Fragment>
-  );
-};
-
-const Result = ({ question, score, authUser }) => {
-  return (
-    <React.Fragment>
-      <Header as="h2">
-        <Header.Content>Results</Header.Content>
-        <Header.Subheader>Would you rather:</Header.Subheader>
-      </Header>
-      <Card fluid>
-        <Card.Content>
-          <Card.Header>{question.optionOne.text}</Card.Header>
-          <Card.Description>
-            <Progress percent={score.percent1} progress color={score.color1} />
-          </Card.Description>
-          {question.optionOne.votes.includes(authUser) && (
-            <Label as="a" image>
-              <img src={"/images/"+authUser+".png"} alt={authUser} />
-              Your vote
-            </Label>
-          )}
-        </Card.Content>
-        <Card.Content extra>
-          <Icon name="user" />
-          {score.optionOneLength} / {score.total}
-        </Card.Content>
-      </Card>
-      <Card fluid>
-        <Card.Content>
-          <Card.Header>{question.optionTwo.text}</Card.Header>
-          <Card.Description>
-            <Progress percent={score.percent2} progress color={score.color2} />
-          </Card.Description>
-          {question.optionTwo.votes.includes(authUser) && (
-            <Label as="a" image>
-            <img src={"/images/"+authUser+".png"} alt={authUser} />
-              Your vote
-            </Label>
-          )}
-        </Card.Content>
-        <Card.Content extra>
-          <Icon name="user" />
-          {score.optionTwoLength} / {score.total}
-        </Card.Content>
-      </Card>
-    </React.Fragment>
-  );
-};
 class Question extends Component {
   state = {
     value: "",
     disabled: this.props.quiz && true,
+    isQuiz: false,
+    isAnswered: false,
   };
+
   constructor(props) {
     super(props);
     this.onChange = this.onChange.bind(this);
     this.viewPollDetails = this.viewPollDetails.bind(this);
     this.answerPoll = this.answerPoll.bind(this);
     this.showResults = this.showResults.bind(this);
-  }
-
-  viewPollDetails() {
-    this.props.history.push({
-      pathname: "/answerTo",
-      state: { question: this.props.question },
-    });
   }
 
   answerPoll() {
@@ -131,18 +46,19 @@ class Question extends Component {
         .concat([question]);
       this.props.updateQuestions([...questions]);
 
-      this.props.history.push({
-        pathname: "/result",
-        state: { question: question },
-      });
+      this.showResults();
     });
   }
 
+  viewPollDetails() {
+    this.props.history.push("/questions/" + this.props.question.id);
+  }
+
   showResults() {
-    this.props.history.push({
-      pathname: "/result",
-      state: { question: this.props.question },
+    this.setState({
+      isAnswered: true,
     });
+    this.props.history.push("/questions/" + this.props.question.id);
   }
 
   onChange(e, { value }) {
@@ -191,7 +107,7 @@ class Question extends Component {
             </Grid.Column>
 
             <Grid.Column width={11}>
-              {this.props.result ? (
+              {this.props.answered || this.state.isAnswered ? (
                 <Result
                   question={this.props.question}
                   score={this.getScore()}
@@ -204,8 +120,6 @@ class Question extends Component {
                     onSubmit={() => {
                       if (this.props.quiz) {
                         this.answerPoll();
-                      } else if (this.props.answered) {
-                        this.showResults();
                       } else {
                         this.viewPollDetails();
                       }
@@ -221,7 +135,7 @@ class Question extends Component {
                       <p>...{this.props.question.optionOne.text}... </p>
                     )}
                     <Button primary fluid disabled={this.state.disabled}>
-                      {this.props.answered ? "Results" : "View Poll"}
+                      View Poll
                     </Button>
                   </Form>
                 </React.Fragment>

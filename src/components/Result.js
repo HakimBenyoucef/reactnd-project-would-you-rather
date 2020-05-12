@@ -1,34 +1,68 @@
 import React, { Component } from "react";
-import NavBar from "./NavBar";
-import GridContainer from "./GridContainer";
-import Question from "./Question";
-import { withRouter } from "react-router-dom";
-import { connect } from "react-redux";
+import { Header, Card, Icon, Progress, Label } from "semantic-ui-react";
+import "semantic-ui-css/semantic.min.css";
 
-class Result extends Component {
+export default class Result extends Component {
   render() {
-    if (!this.props.authUser) {
-      this.props.history.push("/login");
-      return <React.Fragment />;
-    }
     return (
       <React.Fragment>
-        <NavBar />
-        <GridContainer>
-          <Question
-            result={true}
-            question={this.props.location.state.question}
-          ></Question>
-        </GridContainer>
+        <Header as="h2">
+          <Header.Content>Results</Header.Content>
+          <Header.Subheader>Would you rather:</Header.Subheader>
+        </Header>
+        <Card fluid>
+          <Card.Content>
+            <Card.Header>{this.props.question.optionOne.text}</Card.Header>
+            <Card.Description>
+              <Progress
+                percent={this.props.score.percent1}
+                progress
+                color={this.props.score.color1}
+              />
+            </Card.Description>
+            {this.props.question.optionOne.votes.includes(this.props.authUser) && (
+              <Label as="a" image>
+                <img
+                  src={"/images/" + this.props.authUser + ".png"}
+                  alt={this.props.authUser}
+                />
+                Your vote
+              </Label>
+            )}
+          </Card.Content>
+          <Card.Content extra>
+            <Icon name="user" />
+            {this.props.score.optionOneLength} / {this.props.score.total}
+          </Card.Content>
+        </Card>
+        <Card fluid>
+          <Card.Content>
+            <Card.Header>{this.props.question.optionTwo.text}</Card.Header>
+            <Card.Description>
+              <Progress
+                percent={this.props.score.percent2}
+                progress
+                color={this.props.score.color2}
+              />
+            </Card.Description>
+            {this.props.question.optionTwo.votes.includes(
+              this.props.authUser
+            ) && (
+              <Label as="a" image>
+                <img
+                  src={"/images/" + this.props.authUser + ".png"}
+                  alt={this.props.authUser}
+                />
+                Your vote
+              </Label>
+            )}
+          </Card.Content>
+          <Card.Content extra>
+            <Icon name="user" />
+            {this.props.score.optionTwoLength} / {this.props.score.total}
+          </Card.Content>
+        </Card>
       </React.Fragment>
     );
   }
 }
-
-const mapStateToProps = (state) => {
-  return {
-    authUser: state.authUser && state.authUser.user,
-  };
-};
-
-export default connect(mapStateToProps, null)(withRouter(Result));

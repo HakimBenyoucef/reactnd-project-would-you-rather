@@ -23,7 +23,7 @@ class Questions extends Component {
         <Tab.Pane attached={false}>
           {this.props.questions &&
             this.getAnswerdQuestion().map((question) => (
-              <Question question={question} key={question.id} answered={true} />
+              <Question question={question} key={question.id} />
             ))}
         </Tab.Pane>
       ),
@@ -43,25 +43,25 @@ class Questions extends Component {
     if (currentUser) {
       let answers = Object.keys(currentUser.answers);
 
-      return answers.map(
-        (id) => this.props.questions.filter((question) => question.id === id)[0]
-      );
+      return answers
+        .map(
+          (id) =>
+            this.props.questions.filter((question) => question.id === id)[0]
+        )
+        .sort((a, b) => b.timestamp - a.timestamp);
     }
   }
   getUnanswerdQuestion() {
     if (this.getAnswerdQuestion()) {
-      return this.props.questions.filter(function (e) {
-        return this.indexOf(e) < 0;
-      }, this.getAnswerdQuestion());
+      return this.props.questions
+        .filter(function (e) {
+          return this.indexOf(e) < 0;
+        }, this.getAnswerdQuestion())
+        .sort((a, b) => b.timestamp - a.timestamp);
     }
   }
 
   render() {
-      
-    if (!this.props.authUser) {
-        this.props.history.push("/login");
-        return <React.Fragment/>
-      }
     return (
       <Tab
         menu={{ fluid: true, tabular: true, pointing: true }}

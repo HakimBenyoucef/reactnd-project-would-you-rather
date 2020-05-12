@@ -19,10 +19,6 @@ class NavBar extends Component {
       this.props.users &&
       this.props.users.filter((user) => user.id === this.props.authUser)[0];
 
-    if (!this.props.authUser) {
-      this.props.history.push("/login");
-      return <React.Fragment />;
-    }
     return (
       <Container>
         <Responsive as={Menu} minWidth={651} pointing secondary>

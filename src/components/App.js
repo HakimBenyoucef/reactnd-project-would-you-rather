@@ -6,9 +6,9 @@ import New from "./New";
 import Leader from "./Leader";
 import { initData } from "../store/actions/shared";
 import { connect } from "react-redux";
-import AnswerToPoll from "./AnswerToPoll";
-import Result from "./Result";
 import NotFound from "./NotFound";
+import ShowQuestion from "./ShowQuestion";
+import ProtectedRoute from "./ProtectedRoute";
 
 class App extends Component {
   componentDidMount() {
@@ -21,11 +21,10 @@ class App extends Component {
         <React.Fragment>
           <Switch>
             <Route path="/login" component={Login} />
-            <Route exact path="/" component={Polls} />
-            <Route path="/add" component={New} />
-            <Route path="/leaderboard" component={Leader} />
-            <Route path="/answerTo" component={AnswerToPoll} />
-            <Route path="/result" component={Result} />
+            <ProtectedRoute exact path="/" component={Polls} />
+            <ProtectedRoute path="/add" component={New} />
+            <ProtectedRoute path="/leaderboard" component={Leader} />
+            <ProtectedRoute path="/questions/:question_id" component={ShowQuestion} />
             <Route component={NotFound} />
           </Switch>
         </React.Fragment>
